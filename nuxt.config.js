@@ -25,8 +25,11 @@ module.exports = {
 
   },
   plugins: [
-    '~/plugins/axios.js'
+    '~/plugins/axios.js',
+    // { src: "@/plugins/element-ui", ssr: false },
+    // { src: "@/plugins/filters.js", ssr: false }
   ],
+  
     env: {
       QIITA_TOKEN: process.env.QIITA_TOKEN
     },
@@ -34,6 +37,8 @@ module.exports = {
   ** Build configuration
   */
  build: {
+   // vendor: ["axios", "element-ui", "dayjs"]
+  },
   /*
   ** Run ESLint on save
   */
@@ -48,5 +53,5 @@ module.exports = {
     }
   }
 }
-}
+
 

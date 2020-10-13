@@ -3,7 +3,9 @@
   <div>
     <h3>Nuxt.jsのタグが付けられた投稿の一覧</h3>
     <ul>
+      <!-- タイトル、ユーザー名 -->
       <li v-for="item in items" :key="item.id">
+        <!-- リストレンダリング、繰り返し表示するディレクティブ -->
         <h4>
           <span>{{item.title}} </span>
           <small>
@@ -13,8 +15,20 @@
             </nuxt-link>
           </small>
         </h4>
-        <div>{{item.body.slice(0, 130)}}……… </div>
+        <!-- コンテンツ -->
+        <div>{{item.body.slice(0, 130)}}… </div>      
+        <!-- URL -->
         <p><a target="_blank" :href="item.url">{{item.url}}</a></p>
+        <!-- タグ -->
+        <!-- el-tag size="mini" type="info" class="tab-style" v-for="(tag, index) in element.tags" :key="index">{{ tag.name }}</el-tag> -->
+        
+        <h5>
+          <span>{{item.tag}} </span>
+          <nuxt-link :to="`/tags/${item.tag}`">
+            {{item.tag}} 
+          </nuxt-link>
+        </h5>
+           
       </li>
     </ul>
   </div>
