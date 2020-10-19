@@ -5,7 +5,6 @@
     <!-- 検索機能 -->
     <p><input type="text" name="content" v-model="content" @focus="set_flg"/></p>
     <div>
-      <input type="text" v-model="items">
       <button @click="find">検索 </button>
     </div>
     <!-- リスト内容 -->
