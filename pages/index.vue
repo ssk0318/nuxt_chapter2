@@ -5,7 +5,7 @@
     <!-- 検索機能 -->
     <p><input type="text" name="content" v-model="content" @focus="set_flg"/></p>
     <div>
-      <button @click="find">検索 </button>
+      <button @click="find">検索</button>
     </div>
     <!-- リスト内容 -->
     <ul>
@@ -46,6 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters(['items']),
+    
     display_items: function() {
       if(this.find_flg) {
         var arr = [];
