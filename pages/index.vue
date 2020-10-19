@@ -2,6 +2,13 @@
   <section class="container">
   <div>
     <h3>Nuxt.jsのタグが付けられた投稿の一覧</h3>
+    <!-- 検索機能 -->
+    <p><input type="text" name="content" v-model="content" @focus="set_flg"/></p>
+    <div>
+      <input type="text" v-model="items">
+      <button @click="find">検索 </button>
+    </div>
+    <!-- リスト内容 -->
     <ul>
       <!-- タイトル、ユーザー名 -->
       <li v-for="item in items" :key="item.id">
@@ -15,20 +22,10 @@
             </nuxt-link>
           </small>
         </h4>
-        <!-- コンテンツ -->
+        <!-- 記事冒頭 -->
         <div>{{item.body.slice(0, 130)}}… </div>      
         <!-- URL -->
         <p><a target="_blank" :href="item.url">{{item.url}}</a></p>
-        <!-- タグ -->
-        <!-- el-tag size="mini" type="info" class="tab-style" v-for="(tag, index) in element.tags" :key="index">{{ tag.name }}</el-tag> -->
-        
-        <h5>
-          <span>{{item.tag}} </span>
-          <nuxt-link :to="`/tags/${item.tag}`">
-            {{item.tag}} 
-          </nuxt-link>
-        </h5>
-           
       </li>
     </ul>
   </div>
@@ -41,12 +38,40 @@ import { mapGetters } from 'vuex'
 export default {
   async asyncData({ store }) {
     if (store.getters['items'].length) {
-      return
+      return {
+      content: '',
+      find_flg: false
+      }
     }
     await store.dispatch('fetchItems')
   },
   computed: {
-    ...mapGetters(['items'])
+    ...mapGetters(['items']),
+    display_items: function() {
+      if(this.find_flg) {
+        var arr = [];
+        var data = this.items;
+        data.forEach(element => {
+          if(element.content.toLowerCase() == this.content.toLowerCase()) {
+            arr.push(element);
+          }
+        });
+        return arr;
+      } else {
+        return this.items;
+      }
+    }
+  },
+  methods: {
+    find: function() {
+    this.find_flg = true;
+    },
+    set_flg: function() {
+      if(this.find_flg) {
+        this.find_flg = false;
+        this.content = '';
+      }
+    },
   }
 }
 </script>
