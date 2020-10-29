@@ -6,6 +6,7 @@
         <input type='text' v-model='tag'>
         <button @click="tagsearch">検索</button>
       </div>
+
     <ul>
       <!-- タイトル、ユーザー名 -->
       <li v-for="item in items" :key="item.id">
@@ -19,20 +20,10 @@
             </nuxt-link>
           </small>
         </h4>
-        <!-- コンテンツ -->
+        <!-- 記事冒頭 -->
         <div>{{item.body.slice(0, 130)}}… </div>      
         <!-- URL -->
         <p><a target="_blank" :href="item.url">{{item.url}}</a></p>
-        <!-- タグ -->
-        <!-- el-tag size="mini" type="info" class="tab-style" v-for="(tag, index) in element.tags" :key="index">{{ tag.name }}</el-tag> -->
-        
-        <h5>
-          <span>{{item.tag}} </span>
-          <nuxt-link :to="`/tags/${item.tag}`">
-            {{item.tag}} 
-          </nuxt-link>
-        </h5>
-           
       </li>
     </ul>
   </div>
@@ -56,6 +47,7 @@ export default {
         this.items = await this.$axios.$get(`https://qiita.com/api/v2/items?query=tag:${this.tag}`);
       }
     }
+
 }
 </script>
 
