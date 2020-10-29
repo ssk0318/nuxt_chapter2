@@ -1,7 +1,7 @@
 <template>
   <section class="container">
   <div>
-    <h3>Qiita投稿 一覧</h3>
+    <h3>Qiita投稿一覧 ({{ tag }})</h3>
       <div>
         <input type='text' v-model='tag'>
         <button @click="tagsearch">検索</button>
