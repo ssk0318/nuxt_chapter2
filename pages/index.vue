@@ -1,7 +1,11 @@
 <template>
   <section class="container">
   <div>
-    <h3>Nuxt.jsのタグが付けられた投稿の一覧</h3>
+    <h3>Qiita投稿 一覧</h3>
+      <div>
+        <input type='text' v-model='tag'>
+        <button @click="tagsearch">検索</button>
+      </div>
     <ul>
       <!-- タイトル、ユーザー名 -->
       <li v-for="item in items" :key="item.id">
@@ -36,18 +40,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  async asyncData({ store }) {
-    if (store.getters['items'].length) {
-      return
+    async asyncData({ app }){
+        const tag = ''
+        const items = await app.$axios.$get(`https://qiita.com/api/v2/items?query=tag:${tag}`)
+        return {
+            items
+        }
+    },
+    data(){
+      return {tag : '', items: ''}
+    },
+    methods: {
+      async tagsearch() {
+        this.items = await this.$axios.$get(`https://qiita.com/api/v2/items?query=tag:${this.tag}`);
+      }
     }
-    await store.dispatch('fetchItems')
-  },
-  computed: {
-    ...mapGetters(['items'])
-  }
 }
 </script>
 
